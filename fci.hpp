@@ -1,0 +1,86 @@
+#include <complex>
+using namespace std;
+typedef complex<double> dcmplex;
+
+class fci{
+private:
+  int lx,ly,ns,nb,nq,kx,ky,sec,mlanc,neig,px,py,qz,qr,sgm1,sgm2,perix,periy,ntrans,**mapptr,**transtep,ntrans0,ntransc,*ntransite,**transite;
+  int **bst,**plq,*pxmap,*pymap,*txmap,*tymap,*sigma1map,*sigma2map,*rotmap,********latticemaps;
+  dcmplex ***f4func;
+  unsigned long *repr,bitmap[64],bitallone,row1,col1,col1rev,*tranbit;
+  double *normfac;
+  unsigned long nbasis,nrep,ntable,*lookuptable;
+  double eps,jcoup,hfldz;
+  dcmplex *mat,**ff,**eigvec;
+  double  *matr,**ffr,**eigvecr;
+  double *aal,*nnl,*eigval,*lanczos_vec,*totspn,*rotquantum;
+  void  build_basis1(int);
+  void  build_basis(int);
+  void  make_lookup_table();
+  void  build_hamiltonian();
+  void  build_hamiltonian_shastry_sutherland();
+  void  build_hamiltonian_j1j2();
+  void  build_hamiltonian_j1j3();
+  void  build_hamiltonian_j1j2_32();
+  void  build_hamiltonian_j1j3_32();
+  void  build_hamiltonian_j1j2_20();
+  void  build_hamiltonian_j1j2_24();
+  void  build_hamiltonian_j1j2_28();
+  void  build_hamiltonian_j1j3_20();
+  void  build_hamiltonian_j1j2_40();
+  void  build_hamiltonian_j1j3_40();
+  void  build_hamiltonian_shastry_sutherland_20();
+  void  build_hamiltonian_shastry_sutherland_32();
+  //void  build_latticemaps();
+  bool  build_latticemaps();
+  void  check_latticemaps();
+  void  translatex(unsigned long, int, unsigned long&);
+  void  translatey(unsigned long, int, unsigned long&);
+  unsigned long latticetransformations(unsigned long,int,int,int,int,int,int,int);
+  bool  checkrepresentative1(unsigned long,double&);
+  bool  checkrepresentative2(unsigned long,double&);
+  bool findrxry(unsigned long, int&,int&,bool);
+  void  findrepresentative(unsigned long, unsigned long&, int&,int&,int&,int&,int&,int&,int&,int&);
+  void  findrepresentative1(unsigned long, unsigned long&, int&,int&,int&,int&,int&,int&,int&);
+  void  findrepresentative2(unsigned long, unsigned long&, int&,int&,int&,int&,int&,int&,int&,int&);
+  dcmplex matrixelement(unsigned long,unsigned long,int,int,int,int,int,int,int,int);
+  double matrixelementr(unsigned long,unsigned long,int,int,int,int,int,int,int,int);
+  double get_phase(unsigned long, unsigned long, int,int,int,int,int,int,int,int,int);
+  void findstate(unsigned long,unsigned long&);
+  bool makefgfunctions();
+  void diatridiag(int);
+  void hamiltonian_vector_multiplication(dcmplex*,dcmplex*);
+  void hamiltonian_vector_multiplication(double*,double*);
+  void rotaterepr(unsigned long, unsigned long&);
+public:
+  fci();
+  fci(int,int,double,double,int,int,int,int,int,int,int,int,int);
+  fci(int,int,double,double,int,int,int,int,int,int);
+  ~fci();
+  bool setup(int,int,double,double,int,int,int,int,int,int,int,int,int);
+  bool setup(int,int,double,double,int,int,int,int,int,int);
+  int count_nbasis(int,int,int,int,int);
+  void clean();
+  void diag_op(int*,int*,dcmplex*,int*,dcmplex*,int*);
+  void hamiltonian();
+  void hamiltonianr();
+  void diagonalize(int,int);
+  void initialize_lanczos();
+  int lanczos1();
+  int lanczos1real();
+  int power1real();
+  void save_eigval();
+  void read_eigenvector();
+  bool compute_eigenvector(int);
+  bool compute_eigenvectorr(int);
+  double measure_total_spin(double*);
+  double measure_total_spin(dcmplex*);
+  double measure_rotation_quantum_number(double*);
+  void measure_bond_enr(double*);
+  void measure();
+  void checkhermitian();
+  void checkhermitianr();
+  inline  int get_nrep(){return nrep;}
+  double get_enr_gs(){return eigval[0];}
+  void compute_specific_heat(double*,double*,double*,double*,double*,double,int,double);
+};
