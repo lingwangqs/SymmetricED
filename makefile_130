@@ -11,51 +11,8 @@ CFLAGS=-openmp -g -O2
 CCFLAGS=-openmp -g -O2
 CXXFLAGS=-openmp -g -O2
 
-main: main.o fci.o ran.o 
-	${F90} ${FFLAGS} -o $@ $<  fci.o ran.o    -lmkl_lapack95_lp64 -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -liomp5 -lstdc++ -nofor_main 
-
-#main: main.o fci_bak.o ran.o 
-#	${F90} ${FFLAGS} -o $@ $<  fci_bak.o ran.o    -lmkl_lapack95_lp64 -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -liomp5 -lstdc++ -nofor_main 
-
-main_32: main_32.o fci_32.o ran.o 
-	${F90} ${FFLAGS} -o $@ $<  fci_32.o ran.o    -lmkl_lapack95_lp64 -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -liomp5 -lstdc++ -nofor_main 
-
-main_32_gxgy: main_32_gxgy.o fci_32_gxgy.o ran.o 
-	${F90} ${FFLAGS} -o $@ $<  fci_32_gxgy.o ran.o    -lmkl_lapack95_lp64 -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -liomp5 -lstdc++ -nofor_main 
-
-main_32_gxgypxpy: main_32_gxgypxpy.o fci_32_gxgypxpy.o ran.o 
-	${F90} ${FFLAGS} -o $@ main_32_gxgypxpy.o  fci_32_gxgypxpy.o ran.o    -lmkl_lapack95_lp64 -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -liomp5 -lstdc++ -nofor_main 
-
-main_32_gxgypxpy_mea_bond_enr: main_32_gxgypxpy_mea_bond_enr.o fci_32_gxgypxpy.o ran.o 
-	${F90} ${FFLAGS} -o $@ main_32_gxgypxpy_mea_bond_enr.o  fci_32_gxgypxpy.o ran.o    -lmkl_lapack95_lp64 -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -liomp5 -lstdc++ -nofor_main 
-
-main_24_gxgypxpy: main_24_gxgypxpy.o fci_24_gxgypxpy.o ran.o 
-	${F90} ${FFLAGS} -o $@ main_24_gxgypxpy.o  fci_24_gxgypxpy.o ran.o    -lmkl_lapack95_lp64 -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -liomp5 -lstdc++ -nofor_main 
-
-main_20_40_gxgypxpy: main_20_40_gxgypxpy.o fci_20_40_gxgypxpy.o ran.o 
-	${F90} ${FFLAGS} -o $@ main_20_40_gxgypxpy.o  fci_20_40_gxgypxpy.o ran.o    -lmkl_lapack95_lp64 -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -liomp5 -lstdc++ -nofor_main 
-
-main_20_40_gxgypxpy_mea_bond_enr: main_20_40_gxgypxpy_mea_bond_enr.o fci_20_40_gxgypxpy.o ran.o 
-	${F90} ${FFLAGS} -o $@ main_20_40_gxgypxpy_mea_bond_enr.o  fci_20_40_gxgypxpy.o ran.o    -lmkl_lapack95_lp64 -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -liomp5 -lstdc++ -nofor_main 
-
 main_regular_gxgypxpy: main_regular_gxgypxpy.o fci_regular_gxgypxpy.o ran.o 
 	${F90} ${FFLAGS} -o $@ main_regular_gxgypxpy.o  fci_regular_gxgypxpy.o ran.o    -lmkl_lapack95_lp64 -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -liomp5 -lstdc++ -nofor_main 
-
-main_regular_gxgypxpy_mea_bond_enr: main_regular_gxgypxpy_mea_bond_enr.o fci_regular_gxgypxpy.o ran.o 
-	${F90} ${FFLAGS} -o $@ main_regular_gxgypxpy_mea_bond_enr.o  fci_regular_gxgypxpy.o ran.o    -lmkl_lapack95_lp64 -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -liomp5 -lstdc++ -nofor_main 
-
-main_20: main_20.o fci_20.o 
-	${F90} ${FFLAGS} -o $@ $<  fci_20.o   -lmkl_lapack95_lp64 -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -liomp5 -lstdc++ -nofor_main 
-
-main_20_evaluate: main_20_evaluate.o fci_20.o 
-	${F90} ${FFLAGS} -o $@ $<  fci_20.o   -lmkl_lapack95_lp64 -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -liomp5 -lstdc++ -nofor_main 
-
-main_20_sortenr: main_20_sortenr.o fci_20.o  sort2.o
-	${F90} ${FFLAGS} -o $@ $<  fci_20.o sort2.o  -lmkl_lapack95_lp64 -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -liomp5 -lstdc++ -nofor_main 
-
-main_sortenr: main_sortenr.o fci.o  sort2.o
-	${F90} ${FFLAGS} -o $@ $<  fci.o sort2.o  -lmkl_lapack95_lp64 -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -liomp5 -lstdc++ -nofor_main 
-
 
 clean:
 	/bin/rm -f *.o 
